@@ -3,28 +3,29 @@ package business.entity;
 import business.feature.Impl.AddressFeatureImpl;
 import business.feature.Impl.UserFeatureImpl;
 
+import java.io.Serializable;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class Address {
+public class Address implements Serializable {
     private int addressId;
-    private int userId;
+    private Users user;
     private String fullAddress;
     private String phone;
     private String receiveName;
 
 
 //    ****************CONTRACTOR***********************:
-    private Address(){
+public Address(){
 
     }
 
-    public Address(int addressId, String fullAddress, String phone, String receiveName, int userId) {
+    public Address(int addressId, String fullAddress, String phone, String receiveName, Users user) {
         this.addressId = addressId;
         this.fullAddress = fullAddress;
         this.phone = phone;
         this.receiveName = receiveName;
-        this.userId = userId;
+        this.user = user;
     }
 
 //  ****************METHOD GET/SET***********************:
@@ -62,21 +63,22 @@ public class Address {
         this.receiveName = receiveName;
     }
 
-    public int getUserId() {
-        return userId;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
 //    ****************INPUT ADDRESS DATA***********************:
 
     public void inputAddressData(Scanner scanner){
          this.addressId =inputAddressData();
-         this.userId =inputUserId(scanner);
+
          this.fullAddress = inputFullAddress(scanner);
          this.phone = inputPhone(scanner);
+         this.receiveName = inputReceiveName(scanner);
 
     }
 
@@ -92,18 +94,6 @@ public class Address {
         return idAddressMax + 1;
     }
 
-    public int inputUserId(Scanner scanner) {
-        do {
-            System.out.println("Enter user ID: ");
-            try {
-                int userId = Integer.parseInt(scanner.nextLine());
-                // Add any necessary validation here, for example checking if the user exists
-                return userId;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid user ID.");
-            }
-        } while (true);
-    }
 
     public String inputFullAddress(Scanner scanner) {
         System.out.println("Enter full address: ");
@@ -156,7 +146,31 @@ public class Address {
             }
         }while (true);
     }
+    public static int inputNumber(Scanner scanner) {
+        do {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.err.println("Please a input number choice");
+            }
+        } while (true);
+
+    }
 
 //    ****************SHOW ADDRESS DATA***********************:
-    public void displayAddressData(){}
+    public void displayAddressData(){
+        String format = "| %-20s | %-20s | %-30s | %-20s | %-20s |\n";
+        String separator = "+----------------------+----------------------+--------------------------------+----------------------+----------------------+\n";
+
+        // Print header
+        System.out.print(separator);
+        System.out.printf(format, "Address ID", "User Name", "Full Address", "Phone", "Receive Name");
+        System.out.print(separator);
+
+        // Print address data
+        System.out.printf(format, addressId, this.user.getUserName(), fullAddress, phone, receiveName);
+        System.out.print(separator);
+        System.out.println();
+
+    }
 }

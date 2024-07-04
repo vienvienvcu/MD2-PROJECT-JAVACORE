@@ -1,6 +1,6 @@
 package business.entity;
 
-import business.constants.Role;
+import business.constants.RoleName;
 import business.feature.Impl.UserFeatureImpl;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 //***********************THUOC TINH****************************************
 
 
-public class Users implements Serializable {
+public class Users implements Serializable,Comparable<Users> {
     private int usersId;
     private String userName;
     private String fullName;
@@ -26,7 +26,7 @@ public class Users implements Serializable {
     private Date updatedDate;
     private boolean statusUser;
     private boolean isDeleted;
-    private Role roleName;
+    private RoleName roleName;
 
 //***********************CONTRACTOR****************************************
 
@@ -35,7 +35,7 @@ public class Users implements Serializable {
 
     public Users(String address, String confirmPassword, Date creationDate,
                  String email, String fullName, boolean gender, boolean isDeleted,
-                 String password, String phone, Role roleName, boolean statusUser,
+                 String password, String phone, RoleName roleName, boolean statusUser,
                  Date updatedDate, String userName, int usersId) {
         this.address = address;
         this.confirmPassword = confirmPassword;
@@ -118,11 +118,11 @@ public class Users implements Serializable {
         this.phone = phone;
     }
 
-    public Role getRoleName() {
+    public RoleName getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(Role roleName) {
+    public void setRoleName(RoleName roleName) {
         this.roleName = roleName;
     }
 
@@ -168,7 +168,7 @@ public class Users implements Serializable {
 
 //    ========================INPUT USER=====================================
 
-    public void inputUser(Scanner scanner){
+    public void inputUserData(Scanner scanner) {
         this.usersId = inputUsersId();
         this.userName = inputNameUser(scanner);
         this.fullName = inputFullName(scanner);
@@ -183,9 +183,19 @@ public class Users implements Serializable {
         this.statusUser = statusUser(scanner);
         this.isDeleted = isDeleted(scanner);
     }
+
+    public void inputUser(Scanner scanner) {
+        this.fullName = inputFullName(scanner);
+        this.gender = inputGender(scanner);
+        this.address = inputAddress(scanner);
+        this.creationDate = new Date();
+        this.updatedDate = this.creationDate;
+        this.statusUser = statusUser(scanner);
+    }
 //    ========================INPUT REGISTER=====================================
 
     public void inputRegister(Scanner scanner) {
+        this.usersId = inputUsersId();
         this.userName = inputNameUser(scanner);
         this.phone = inputPhone(scanner);
         this.email = inputMail(scanner);
@@ -196,13 +206,13 @@ public class Users implements Serializable {
 //    ========================VALIDATION=====================================
 
     public int inputUsersId() {
-      int idMax = 0;
-      for (Users users : UserFeatureImpl.usersList){
-          if(users.getUsersId() > idMax){
-              idMax = users.getUsersId();
-          }
-      }
-      return idMax + 1;
+        int idMax = 0;
+        for (Users users : UserFeatureImpl.usersList) {
+            if (users.getUsersId() > idMax) {
+                idMax = users.getUsersId();
+            }
+        }
+        return idMax + 1;
     }
 
     public String inputNameUser(Scanner scanner) {
@@ -211,41 +221,41 @@ public class Users implements Serializable {
             String username = scanner.nextLine();
             if (username.isEmpty()) {
                 System.err.println("Username cannot be empty,please try again");
-            }else {
-                if (username.length() > 6 && username.length()<=100) {
+            } else {
+                if (username.length() > 6 && username.length() <= 100) {
                     return username;
-                }else {
+                } else {
                     System.err.println("Username must be less >6 characters long and less than 100 characters");
                 }
             }
-        }while (true);
+        } while (true);
 
     }
 
-    public String inputFullName(Scanner scanner){
+    public String inputFullName(Scanner scanner) {
         System.out.println("Enter full name: ");
         do {
             String fullName = scanner.nextLine();
             if (fullName.isEmpty()) {
                 System.err.println("Full name cannot be empty,please try again");
-            }else {
+            } else {
                 return fullName;
             }
-        }while (true);
+        } while (true);
     }
 
     public Boolean inputGender(Scanner scanner) {
         System.out.println("Enter Gender: ");
         do {
             String gender = scanner.nextLine();
-            if (gender.isEmpty()){
+            if (gender.isEmpty()) {
                 System.err.println("Gender cannot be empty,please try again");
-            }else {
-                if (gender.equals("male")||gender.equals("female")) {
+            } else {
+                if (gender.equals("male") || gender.equals("female")) {
                     return Boolean.parseBoolean(gender);
                 }
             }
-        }while (true);
+        } while (true);
     }
 
     public String inputMail(Scanner scanner) {
@@ -253,24 +263,24 @@ public class Users implements Serializable {
         do {
             String email = scanner.nextLine();
             String emailRegex = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-            if (Pattern.matches(emailRegex,email)){
+            if (Pattern.matches(emailRegex, email)) {
                 boolean isExists = false;
                 for (Users users : UserFeatureImpl.usersList) {
-                    if (users.getEmail().equals(email)){
+                    if (users.getEmail().equals(email)) {
                         isExists = true;
                         break;
                     }
                 }
-                if (isExists){
+                if (isExists) {
                     System.err.println("Email existed, please try again");
-                }else {
+                } else {
                     return email;
                 }
-            }else {
+            } else {
                 System.err.println("Invalid email format,please try again 'xxxx@gmail.com'");
             }
 
-        }while (true);
+        } while (true);
     }
 
     public String inputPhone(Scanner scanner) {
@@ -278,28 +288,28 @@ public class Users implements Serializable {
         do {
             String phone = scanner.nextLine();
             String phoneRegex = "^\\+[1-9]\\d{1,14}$";
-            if (phone.isEmpty()){
+            if (phone.isEmpty()) {
                 System.err.println("Phone number cannot be empty,please try again");
-            }else {
-               if (Pattern.matches(phoneRegex,phone)){
-                   boolean isExists = false;
-                   for (Users users : UserFeatureImpl.usersList) {
-                       if (users.getPhone().equals(phone)){
-                           isExists = true;
-                           break;
-                       }
-                   }
-                   if (isExists){
-                       System.err.println("Phone number existed, please try again");
-                   }else {
-                       return phone;
-                   }
-               }else {
-                   System.err.println("Invalid phone format,please try again ''");
-               }
+            } else {
+                if (Pattern.matches(phoneRegex, phone)) {
+                    boolean isExists = false;
+                    for (Users users : UserFeatureImpl.usersList) {
+                        if (users.getPhone().equals(phone)) {
+                            isExists = true;
+                            break;
+                        }
+                    }
+                    if (isExists) {
+                        System.err.println("Phone number existed, please try again");
+                    } else {
+                        return phone;
+                    }
+                } else {
+                    System.err.println("Invalid phone format,please try again ''");
+                }
             }
 
-        }while (true);
+        } while (true);
 
     }
 
@@ -307,47 +317,47 @@ public class Users implements Serializable {
         System.out.println("Enter address: ");
         do {
             String address = scanner.nextLine();
-            if (address.isEmpty()){
+            if (address.isEmpty()) {
                 System.err.println("Address cannot be empty,please try again");
-            }else {
+            } else {
                 return address;
             }
-        }while (true);
+        } while (true);
     }
 
     public String inputPassword(Scanner scanner) {
         System.out.println("Enter password: ");
         do {
             String password = scanner.nextLine();
-            if (password.isEmpty()){
+            if (password.isEmpty()) {
                 System.err.println("Password cannot be empty,please try again");
-            }else {
-                if (password.length() < 6){
+            } else {
+                if (password.length() < 6) {
                     System.err.println("Password must be at least 6 characters");
-                }else {
+                } else {
                     return password;
                 }
             }
 
-        }while (true);
+        } while (true);
     }
 
     public String inputConfirmPassword(Scanner scanner) {
         System.out.println("Enter confirm password: ");
         do {
             String confirmPassword = scanner.nextLine();
-            if (confirmPassword.isEmpty()){
+            if (confirmPassword.isEmpty()) {
                 System.err.println("Confirm password cannot be empty,please try again");
-            }else {
-                if (confirmPassword.equals(this.password)){
+            } else {
+                if (confirmPassword.equals(this.password)) {
 
                     return confirmPassword;
 
-                }else {
+                } else {
                     System.err.println("Confirm password does not match,please try again");
                 }
             }
-        }while (true);
+        } while (true);
     }
 
 
@@ -355,65 +365,102 @@ public class Users implements Serializable {
         System.out.println("Enter status user: ");
         do {
             String status = scanner.nextLine();
-            if (status.isEmpty()){
+            if (status.isEmpty()) {
                 System.err.println("Status cannot be empty,please try again");
-            }else {
-                if (status.equals("true")||status.equals("false")){
+            } else {
+                if (status.equals("true") || status.equals("false")) {
                     return Boolean.parseBoolean(status);
-                }else {
+                } else {
                     System.err.println("Status user only 2 value 'true' or 'false',please try again");
                 }
             }
-        }while (true);
+        } while (true);
     }
 
     public boolean isDeleted(Scanner scanner) {
         System.out.println("Enter deleted status: ");
         do {
             String statusDelete = scanner.nextLine();
-            if (statusDelete.equals("1")||statusDelete.equals("0")){
+            if (statusDelete.equals("1") || statusDelete.equals("0")) {
                 return Boolean.parseBoolean(statusDelete);
-            }else {
+            } else {
                 System.err.println("Status user only 2 value '1' or '0',please try again");
             }
-        }while (true);
+        } while (true);
     }
 
-//     ========================SHOW USER=====================================
+//     ========================SHOW USER OF ADMIN=====================================
 
-    public void displayUsers() {
-        System.out.println("==================================================================================================================================");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        System.out.printf("%-10s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s \n",
-        "User ID","User Name","Full name","Gender","Address","Email","Phone","password","Confirm Password",
-        "Creation Date","Update Date","Status","Deleted","Role name");
-        System.out.printf("%-10d %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s \n",
-                this.usersId,this.userName,this.fullName,this.gender?"male":"female",
-                this.address,this.email,this.phone,this.password,this.confirmPassword,
-                dateFormat.format(this.creationDate),dateFormat.format(this.updatedDate),
-                this.statusUser?"Active":"Inactive",this.isDeleted?"Active":"Deleted",this.roleName);
+    public void displayUserData() {
+        // Date format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String format = "| %-12s | %-20s | %-20s | %-12s | %-20s | %-30s | %-15s | %-12s |\n";
+        String separator = "+--------------+----------------------+----------------------+--------------+----------------------+--------------------------------+-----------------+--------------+\n";
+
+        System.out.printf(separator);
+        System.out.format(format, "User ID", "User Name", "Full Name", "Gender", "Address", "Email", "Phone", "Role Name");
+        System.out.printf(separator);
+
+        System.out.format(format, usersId, userName, fullName, gender ? "Male" : "Female", address, email, phone, roleName);
+        System.out.printf(separator);
+
+        System.out.format(format, "Password", "Confirm Password", "Creation Date", "Update Date", "Status", "Deleted", "", "");
+        System.out.printf(separator);
+
+        System.out.format(format, password, confirmPassword,
+                creationDate != null ? sdf.format(creationDate) : "", updatedDate != null ? sdf.format(updatedDate) : "",
+                statusUser ? "Active" : "Inactive", isDeleted ? "Deleted" : "Not Deleted", "", "");
+        System.out.printf(separator);
+        System.out.println();
     }
+//     ========================SHOW USERS =====================================
 
-//     ========================SHOW LOG IN=====================================
+    public void displayUser() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String format = "| %-20s | %-20s | %-12s | %-20s | %-30s | %-15s | %-12s |\n";
+        String separator = "+----------------------+----------------------+--------------+----------------------+--------------------------------+-----------------+--------------+\n";
 
-    public void displayLogIn() {
-        System.out.println("=================================================================");
-        System.out.printf("%-20s %-20s %-20s\n",
-              "EMail","PassWord","Confirm Password");
-        System.out.printf("%-20s %-20s\n",
-              this.email,this.password);
+        // Table header
+        System.out.print(separator);
+        System.out.format(format, "User Name", "Full Name", "Gender", "Address", "Email", "Phone", "Role Name");
+        System.out.print(separator);
+
+        // User data
+        System.out.format(format, userName, fullName, gender ? "Male" : "Female", address, email, phone, roleName);
+        System.out.print(separator);
+
+        System.out.format(format, "Password", "Confirm Password", "Creat Date", "Update Date", "Status", "Deleted", "", "");
+        System.out.print(separator);
+
+        System.out.format(format, password, confirmPassword,
+                creationDate != null ? sdf.format(creationDate) : "", updatedDate != null ? sdf.format(updatedDate) : "",
+                statusUser ? "Active" : "Inactive", isDeleted ? "Deleted" : "Not Deleted", "", "");
+        System.out.print(separator);
+        System.out.println();
 
     }
 
 //     ========================SHOW REGISTER=====================================
 
     public void displayRegister() {
-        System.out.println("==============================================================================================");
-        System.out.printf("%-20s %-20s %-20s %-20s %-20s\n",
-                "User name","Phone","EMail","PassWord","Confirm Password");
-        System.out.printf("%-20s %-20s %-20s %-20s %-20s\n",
-                this.userName,this.phone,this.email,this.password,this.confirmPassword);
+        String format = "| %-20s | %-20s | %-20s | %-20s | %-20s |\n";
+        String separator = "+----------------------+----------------------+----------------------+----------------------+----------------------+\n";
+
+        // Print header
+        System.out.print(separator);
+        System.out.printf(format, "User Name", "Phone", "Email", "Password", "Confirm Password");
+        System.out.print(separator);
+
+        // Print register data
+        System.out.printf(format, this.userName, this.phone, this.email, this.password, this.confirmPassword);
+        System.out.print(separator);
+        System.out.println();
 
     }
 
+    @Override
+    public int compareTo(Users o) {
+        return this.userName.compareTo(o.userName);
+    }
 }
+

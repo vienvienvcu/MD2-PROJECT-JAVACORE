@@ -1,11 +1,12 @@
-package presentation;
+package presentation.mainShow;
 
-import business.constants.Role;
+import business.constants.RoleName;
 import business.entity.Users;
 import business.feature.IUserFeature;
 import business.feature.Impl.UserFeatureImpl;
 import presentation.adminShow.AdminManagement;
 import presentation.generalShow.GeneralManagement;
+import presentation.userShow.PersonalManagement;
 import presentation.userShow.UserManagement;
 
 import java.util.Scanner;
@@ -16,6 +17,8 @@ public class MainMenu {
     public static IUserFeature userFeature = new UserFeatureImpl();
 
     public static void main(String[] args) {
+        //Doc tat ca du lieu
+        ///danh muc, san pham, user
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━ WEB BÁN HÀNG ━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
@@ -38,6 +41,7 @@ public class MainMenu {
                     GeneralManagement.showMenuGeneral(scanner);
                     break;
                 case 5:
+                    //ghi de tat ca du lieu ra file
                     System.exit(0);
                     break;
                 default:
@@ -56,13 +60,13 @@ public class MainMenu {
         String email = scanner.nextLine();
         System.out.println("Enter vào password: ");
         String password = scanner.nextLine();
-        Users user = userFeature.login(email, password);
-        if (user == null) {
+        UserFeatureImpl.userLogin = userFeature.login(email, password);
+        if (UserFeatureImpl.userLogin == null) {
             System.err.println("Email và password không đúng");
             return;
         }
         // check quyền
-        if (user.getRoleName().equals(Role.ROLE_ADMIN)) {
+        if (UserFeatureImpl.userLogin.getRoleName().equals(RoleName.ROLE_ADMIN)) {
             // điều hướng đến menu admin
             AdminManagement adminManagement = new AdminManagement();
             adminManagement.showMenuAdmin(scanner);

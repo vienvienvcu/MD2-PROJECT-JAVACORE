@@ -16,10 +16,11 @@ public class AdminManagement {
             System.out.println("┃      " + GREEN + "3. MANAGEMENT ORDER      " + BLUE + "                  ┃");
             System.out.println("┃      " + GREEN + "4. MANAGEMENT USERS     " + BLUE + "                   ┃");
             System.out.println("┃      " + GREEN + "5. MANAGEMENT STATISTICAL   " + BLUE + "               ┃");
-            System.out.println("┃      " + GREEN + "6. LOG OUT               " + BLUE + "                  ┃");
+            System.out.println("┃      " + GREEN + "6. SHOW LIST ROLE   " + BLUE + "                       ┃");
+            System.out.println("┃      " + GREEN + "7. LOG OUT               " + BLUE + "                  ┃");
             System.out.println("┃                                                 ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-            System.out.println("Your choice to 1 from 4: ");
+            System.out.println("Your choice to 1 from 7: ");
             int choice = inputNumber(scanner);
             switch (choice) {
                 case 1:
@@ -29,13 +30,16 @@ public class AdminManagement {
                     ManagementProduct.showMenuProduct(scanner);
                     break;
                 case 3:
-
                     break;
                 case 4:
+                    ManagementUsers.showMenuUsersAdmin(scanner);
                     break;
                 case 5:
                     break;
                 case 6:
+                    RoleManagement.showRole(scanner);
+                    break;
+                case 7:
                     isExit = false;
                     break;
                 default:

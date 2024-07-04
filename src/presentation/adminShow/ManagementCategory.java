@@ -12,9 +12,6 @@ import static business.utils.Colors.GREEN;
 public class ManagementCategory {
     public static CategoryFeatureImpl categoryFeature = new CategoryFeatureImpl();
 
-    public static void main(String[] args) {
-
-    }
     public static void showMenuCategory(Scanner scanner) {
         boolean isExit = true;
         do {
@@ -58,6 +55,7 @@ public class ManagementCategory {
             }
         } while (isExit);
     }
+
     public static void displayCategory() {
         if (CategoryFeatureImpl.categoryList.isEmpty()){
             System.err.println("There is no category in the system");
@@ -136,6 +134,7 @@ public class ManagementCategory {
         String categoryName = scanner.nextLine().toLowerCase();
         categoryFeature.searchCategoryByName(categoryName);
     }
+
     public static int inputNumber(Scanner scanner) {
         do {
             try {

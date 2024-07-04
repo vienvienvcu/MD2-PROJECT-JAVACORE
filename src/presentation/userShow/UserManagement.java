@@ -1,18 +1,24 @@
 package presentation.userShow;
 
+import business.entity.Product;
+import business.entity.Users;
+import business.feature.Impl.UserFeatureImpl;
+
 import java.util.Scanner;
 
 import static business.utils.Colors.BLUE;
 import static business.utils.Colors.GREEN;
+import static presentation.adminShow.ManagementProduct.productFeature;
 
 public class UserManagement {
+    public static UserFeatureImpl userFeature = new UserFeatureImpl();
     public static void showMenuUser(Scanner scanner) {
         boolean isExit = true;
         do {
                 System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━ MENU USERS ━━━━━━━━━━━━━━━━━━━┓");
                 System.out.println("┃                                                 ┃");
                 System.out.println("┃      " + GREEN + "1. SHOW PRODUCT LIST     " + BLUE + "                  ┃");
-                System.out.println("┃      " + GREEN + "2. VIEW PERSONAL INFORMATION          " + BLUE + "     ┃");
+                System.out.println("┃      " + GREEN + "2. MANAGEMENT PERSONAL INFORMATION    " + BLUE + "     ┃");
                 System.out.println("┃      " + GREEN + "3. CART MANAGEMENT       " + BLUE + "                  ┃");
                 System.out.println("┃      " + GREEN + "4. ORDER MANAGEMENT      " + BLUE + "                  ┃");
                 System.out.println("┃      " + GREEN + "5. MANAGE FAVORITE LIST  " + BLUE + "                  ┃");
@@ -23,8 +29,10 @@ public class UserManagement {
                 int choice = inputNumber(scanner);
                 switch (choice) {
                     case 1:
+                        displayProduct();
                         break;
                     case 2:
+                        PersonalManagement.showMenuPersonal(scanner);
                         break;
                     case 3:
                         break;
@@ -41,6 +49,18 @@ public class UserManagement {
         } while (isExit);
     }
 
+    public static void displayProduct() {
+        if (productFeature.getAll().isEmpty()){
+            System.err.println("product now is empty");
+        }else {
+            for (Product product : productFeature.getAll()) {
+                product.displayProductData();
+            }
+        }
+    }
+    public static void showProductDetail(Scanner scanner) {
+
+    }
 
     public static int inputNumber(Scanner scanner) {
         do {
