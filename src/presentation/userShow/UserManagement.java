@@ -35,10 +35,13 @@ public class UserManagement {
                         PersonalManagement.showMenuPersonal(scanner);
                         break;
                     case 3:
+                        CartManagement.showMenuCart(scanner);
                         break;
                     case 4:
+                        OrderManagement.showMenuOrder(scanner);
                         break;
                     case 5:
+                        WishListManagement.showMenuWishList(scanner);
                         break;
                     case 6:
                         isExit = false;
@@ -58,9 +61,7 @@ public class UserManagement {
             }
         }
     }
-    public static void showProductDetail(Scanner scanner) {
 
-    }
 
     public static int inputNumber(Scanner scanner) {
         do {
@@ -72,4 +73,6 @@ public class UserManagement {
         } while (true);
 
     }
+
+
 }

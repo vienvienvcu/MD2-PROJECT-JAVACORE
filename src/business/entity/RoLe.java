@@ -3,9 +3,10 @@ package business.entity;
 import business.constants.RoleName;
 import business.feature.Impl.RoleFeatureImpl;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class RoLe {
+public class RoLe implements Serializable {
     private int roleId;
     private RoleName roleName;
 //

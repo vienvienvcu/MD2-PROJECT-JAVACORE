@@ -37,7 +37,7 @@ public class AdminManagement {
                 case 5:
                     break;
                 case 6:
-                    RoleManagement.showRole(scanner);
+                    RoleManagement.showMenuRole(scanner);
                     break;
                 case 7:
                     isExit = false;

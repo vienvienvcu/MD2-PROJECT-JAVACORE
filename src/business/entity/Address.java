@@ -75,7 +75,6 @@ public Address(){
 
     public void inputAddressData(Scanner scanner){
          this.addressId =inputAddressData();
-
          this.fullAddress = inputFullAddress(scanner);
          this.phone = inputPhone(scanner);
          this.receiveName = inputReceiveName(scanner);
@@ -173,4 +172,6 @@ public Address(){
         System.out.println();
 
     }
+
+
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleFeatureImpl implements IRoleFeature {
-    public static List <RoLe> roLeList = new ArrayList<>();
+    public static List <RoLe> roLeList;
 
     static {
         roLeList = IOFile.readFromFile(IOFile.PATH_ROLE);

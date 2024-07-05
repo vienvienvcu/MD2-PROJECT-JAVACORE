@@ -101,7 +101,6 @@ public class GeneralManagement {
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
-
     public static void displayAllProductsOnSales() {
         for (Product product: ProductFeatureImpl.productList){
             if (product.getStatus()){

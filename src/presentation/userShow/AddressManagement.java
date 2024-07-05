@@ -3,7 +3,6 @@ package presentation.userShow;
 import business.entity.Address;
 import business.entity.Users;
 import business.feature.Impl.AddressFeatureImpl;
-import business.feature.Impl.UserFeatureImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,17 +58,7 @@ public class AddressManagement {
             for (int i = 0; i < number; i++) {
                 System.out.println("Add address " + (i + 1) + ":");
                 Address address = new Address();
-
-                // Nhập lại tên người dùng cho đến khi tìm thấy hoặc người dùng dừng lại
-                Users user = null;
-                while (user == null) {
-                    user = findUser(scanner);
-                    if (user == null) {
-                        System.out.println("User not found. Please try again.");
-                    }
-                }
-
-                address.setUser(user);
+                address.setUser(userLogin);
                 address.inputAddressData(scanner);
                 addressFeature.save(address);
             }
@@ -80,7 +69,7 @@ public class AddressManagement {
         String currentUserEmail = getCurrentUserEmail(); // Hàm này trả về email của người dùng hiện tại
 
         if (currentUserEmail == null) {
-            System.err.println("Current user not authenticated.");
+            System.err.println("Current user not exist.");
             return;
         }
 
@@ -112,18 +101,6 @@ public class AddressManagement {
         } else {
             return null;
         }
-    }
-
-    public static Users findUser(Scanner scanner) {
-        System.out.println("Enter user name: ");
-        String userName = scanner.nextLine().trim(); // Nhập tên người dùng và xóa khoảng trắng
-        for (Users user : UserFeatureImpl.usersList) {
-            if (user.getUserName().equals(userName)) {
-                return user;
-            }
-        }
-        System.err.println("User not found.");
-        return null;
     }
 
     public static void showAddressById(Scanner scanner) {

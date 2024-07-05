@@ -223,7 +223,18 @@ public class Users implements Serializable,Comparable<Users> {
                 System.err.println("Username cannot be empty,please try again");
             } else {
                 if (username.length() > 6 && username.length() <= 100) {
-                    return username;
+                    boolean isExist = false;
+                    for (Users user : UserFeatureImpl.usersList) {
+                        if (user.getUserName().equals(username)) {
+                            isExist = true;
+                            break;
+                        }
+                    }
+                    if (isExist){
+                        System.err.println("Username is already taken,please try again");
+                    }else {
+                        return this.userName;
+                    }
                 } else {
                     System.err.println("Username must be less >6 characters long and less than 100 characters");
                 }

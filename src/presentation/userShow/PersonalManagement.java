@@ -8,10 +8,11 @@ import java.util.Scanner;
 
 import static business.utils.Colors.BLUE;
 import static business.utils.Colors.GREEN;
-import static presentation.adminShow.ManagementProduct.productFeature;
 
 public class PersonalManagement {
+
     public static UserFeatureImpl userFeature = new UserFeatureImpl();
+
     public static void showMenuPersonal(Scanner scanner) {
         boolean isExit = true;
         do {
@@ -50,7 +51,6 @@ public class PersonalManagement {
         } while (isExit);
     }
 
-
     public static void addDetails(Scanner scanner) {
         System.out.println("Enter detail information: ");
         UserFeatureImpl.userLogin.inputUser(scanner);
@@ -70,7 +70,6 @@ public class PersonalManagement {
            }
        }
     }
-
 
     public static int inputNumber(Scanner scanner) {
         do {

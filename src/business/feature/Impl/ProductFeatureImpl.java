@@ -11,7 +11,12 @@ import java.util.List;
 
 public class ProductFeatureImpl implements IProductFeature {
 
-    public static List<Product> productList = new ArrayList<>();
+    public static List<Product> productList;
+
+    static {
+        productList = IOFile.readFromFile(IOFile.PATH_PRODUCT);
+    }
+
     public ProductFeatureImpl() {
        productList = IOFile.readFromFile(IOFile.PATH_PRODUCT);
     }

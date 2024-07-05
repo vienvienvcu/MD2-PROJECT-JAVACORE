@@ -10,6 +10,9 @@ public class IOFile {
     public static final String PATH_PRODUCT = "src/business/data/product.txt" ;;
     public static final String PATH_ROLE = "src/business/data/roles.txt";
     public static final String PATH_ADDRESS = "src/business/data/address.txt";
+    public static final String PATH_CART = "src/business/data/cart.txt";
+    public static final String PATH_WISH = "src/business/data/wish.txt";
+
     // Ghi danh sách đối tượng vào tệp
     public static <T> void writeToFile(String path, List<T> list) {
         // input - vào chương trình

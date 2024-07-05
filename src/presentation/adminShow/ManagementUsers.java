@@ -18,11 +18,10 @@ public class ManagementUsers {
             System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━━ MENU USERS ━━━━━━━━━━━━━━━━━━━┓");
             System.out.println("┃                                                  ┃");
             System.out.println("┃      " + GREEN + "1. SHOW LIST USERS INFORMATION    " + BLUE + "          ┃");
-            System.out.println("┃      " + GREEN + "2. ADD USER        " + BLUE + "                         ┃");
-            System.out.println("┃      " + GREEN + "3. DELETE USER   " + BLUE + "                           ┃");
-            System.out.println("┃      " + GREEN + "4. SEARCH USER BY ID  " + BLUE + "                      ┃");
-            System.out.println("┃      " + GREEN + "5. SORT USER NAME       " + BLUE + "                    ┃");
-            System.out.println("┃      " + GREEN + "6. BACK   " + BLUE + "                                  ┃");
+            System.out.println("┃      " + GREEN + "2. DELETE USER   " + BLUE + "                           ┃");
+            System.out.println("┃      " + GREEN + "3. SEARCH USER BY ID  " + BLUE + "                      ┃");
+            System.out.println("┃      " + GREEN + "4. SORT USER NAME       " + BLUE + "                    ┃");
+            System.out.println("┃      " + GREEN + "5. BACK   " + BLUE + "                                  ┃");
             System.out.println("┃                                                  ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.println("Your choice to 1 from 5: ");
@@ -32,18 +31,15 @@ public class ManagementUsers {
                     showUsersAdmin();
                     break;
                 case 2:
-                    addUser(scanner);
-                    break;
-                case 3:
                     deleteUser(scanner);
                     break;
-                case 4:
+                case 3:
                     searchUser(scanner);
                     break;
-                case 5:
+                case 4:
                    UserFeatureImpl.sortUserById();
                     break;
-                case 6:
+                case 5:
                     isExit = false;
                     break;
                 default:
@@ -51,7 +47,6 @@ public class ManagementUsers {
             }
         } while (isExit);
     }
-
 
 
     public static void searchUser(Scanner scanner) {
@@ -63,18 +58,6 @@ public class ManagementUsers {
             }
         }
         System.out.println("You have found the user with ID " + userIdSearch);
-    }
-
-    public static void addUser(Scanner scanner) {
-        System.out.println("Enter number of users you want to add: ");
-        int numberOfUsers = inputNumber(scanner);
-        for (int i = 0; i < numberOfUsers; i++) {
-            System.out.println("User information" +(i+1) + ": ");
-            Users user = new Users();
-            user.inputUserData(scanner);
-            userFeature.save(user);
-        }
-        System.out.println("You have successfully added " + numberOfUsers + " users");
     }
 
     public static void showUsersAdmin() {
@@ -90,8 +73,6 @@ public class ManagementUsers {
         userFeature.delete(userIdDelete);
         System.out.println("You have successfully deleted " + userIdDelete + " users");
     }
-
-
 
     public static int inputNumber(Scanner scanner) {
         do {

@@ -9,18 +9,16 @@ public class TestMenu {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
             do {
-                System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━ MENU ADMIN ━━━━━━━━━━━━━━━━━━━┓");
-                System.out.println("┃                                                 ┃");
-                System.out.println("┃      " + GREEN + "1. MANAGEMENT CATALOG    " + BLUE + "                  ┃");
-                System.out.println("┃      " + GREEN + "2. MANAGEMENT PRODUCT          " + BLUE + "            ┃");
-                System.out.println("┃      " + GREEN + "3. MANAGEMENT ORDER      " + BLUE + "                  ┃");
-                System.out.println("┃      " + GREEN + "4. MANAGEMENT USERS     " + BLUE + "                   ┃");
-                System.out.println("┃      " + GREEN + "5. MANAGEMENT STATISTICAL   " + BLUE + "               ┃");
-                System.out.println("┃      " + GREEN + "6. SHOW LIST ROLE   " + BLUE + "                       ┃");
-                System.out.println("┃      " + GREEN + "7. LOG OUT               " + BLUE + "                  ┃");
-                System.out.println("┃                                                 ┃");
-                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-                System.out.println("Your choice to 1 from 4: ");
+                System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━━ MENU WISH LIST━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println("┃                                                      ┃");
+                System.out.println("┃      " + GREEN + "1. SHOW ALL PRODUCTS IN WISH LIST  " + BLUE + "             ┃");
+                System.out.println("┃      " + GREEN + "2. DELETE ONE PRODUCT IN WISH LIST " + BLUE + "             ┃");
+                System.out.println("┃      " + GREEN + "3. DELETE ALL PRODUCTS IN WISH LIST   " + BLUE + "          ┃");
+                System.out.println("┃      " + GREEN + "4. ADD PRODUCT IN WISH LIST " + BLUE + "                    ┃");
+                System.out.println("┃      " + GREEN + "5. BACK               " + BLUE + "                          ┃");
+                System.out.println("┃                                                      ┃");
+                System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+                System.out.println("Your choice to 1 from 5: ");
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:

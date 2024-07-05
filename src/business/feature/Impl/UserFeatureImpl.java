@@ -58,7 +58,6 @@ public class UserFeatureImpl implements IUserFeature {
                     break;
                 }
             }
-
         }
         IOFile.writeToFile(IOFile.PATH_USER, usersList);
     }
@@ -106,7 +105,6 @@ public class UserFeatureImpl implements IUserFeature {
     }
 
     public Boolean findByName(String name) {
-
         for (int i = 0; i < usersList.size(); i++) {
             if (usersList.get(i).getUserName().equals(name)) {
                 return true;
@@ -125,6 +123,7 @@ public class UserFeatureImpl implements IUserFeature {
           System.err.println("User not found");
         }
     }
+
     public static void sortUserById() {
         Collections.sort(UserFeatureImpl.usersList);
         for (Users user : UserFeatureImpl.usersList) {
