@@ -1,6 +1,7 @@
 package business.feature.Impl;
 
 import business.constants.RoleName;
+import business.entity.Orders;
 import business.entity.Users;
 import business.feature.IUserFeature;
 import business.utils.IOFile;
@@ -9,22 +10,15 @@ import java.util.*;
 
 public class UserFeatureImpl implements IUserFeature {
     public static List<Users> usersList;
-    public static Users userLogin ;
+    public static Users userLogin ;//lưu trữ người dùng hiện tại sau khi họ đăng nhập.
 
     static {
         usersList = IOFile.readFromFile(IOFile.PATH_USER);
-        if (usersList == null) {
-            usersList = new ArrayList<>();
-        }
+
     }
 
     public UserFeatureImpl() {
-        if (usersList == null) {
             usersList = IOFile.readFromFile(IOFile.PATH_USER);
-            if (usersList == null) {
-                usersList = new ArrayList<>();
-            }
-        }
     }
 
 
@@ -132,4 +126,10 @@ public class UserFeatureImpl implements IUserFeature {
         System.out.println("You have successfully sorted users by id ");
         IOFile.writeToFile(IOFile.PATH_USER, usersList);
     }
+
+//lưu trữ người dùng hiện tại sau khi họ đăng nhập.
+public static Users getCurrentUser() {
+    return userLogin;
+}
+
 }

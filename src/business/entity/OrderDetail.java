@@ -1,6 +1,8 @@
 package business.entity;
 
-public class OrderDetail {
+import java.io.Serializable;
+
+public class OrderDetail implements Serializable {
     private int orderId;
     private int productId;
     private String productName;
@@ -62,9 +64,4 @@ public class OrderDetail {
     public void setProductName(String productName) {
         this.productName = productName;
     }
-
-//      ==================== VALIDATION==============================
-
-//      =====================INPUT CART==============================
-//      =====================SHOW CART===============================
 }

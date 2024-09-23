@@ -62,9 +62,9 @@ public class WishList implements Serializable {
         return idWishMax + 1;
 
     }
-    public int inputProductId(Scanner scanner){
-        String format = "| %-5s | %-20s | %-10s | %-10s | %-30s | %-10s |\n";
-        String separator = "+-------+----------------------+------------+------------+--------------------------------+------------+\n";
+    public int inputProductId(Scanner scanner) {
+        String format = "| %-5s | %-20s | %-10s | %-15s | %-30s | %-10s |\n";
+        String separator = "+-------+----------------------+------------+-----------------+--------------------------------+------------+\n";
 
         do {
             // Table header
@@ -75,11 +75,12 @@ public class WishList implements Serializable {
             // Product data
             for (int i = 0; i < ProductFeatureImpl.productList.size(); i++) {
                 Product product = ProductFeatureImpl.productList.get(i);
+                String stockDisplay = product.getStockQuantity() > 0 ? Integer.toString(product.getStockQuantity()) : "Out of stock";
                 System.out.format(format,
                         (i + 1),
                         product.getProductName(),
                         product.getUniPrice(),
-                        product.getStockQuantity(),
+                        stockDisplay,
                         product.getDescription(),
                         product.getStatus());
             }
@@ -88,8 +89,15 @@ public class WishList implements Serializable {
             System.out.print("Enter your choice: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
-            if (choice > 0 && choice <= productList.size()) {
-                return ProductFeatureImpl.productList.get(choice - 1).getProductId();
+            if (choice > 0 && choice <= ProductFeatureImpl.productList.size()) {
+                Product selectedProduct = ProductFeatureImpl.productList.get(choice - 1);
+                if (selectedProduct.getStockQuantity() == 0) {
+                    System.err.println("This product is out of stock!,please choose another one!");
+                } else if (selectedProduct.getStatus().equals(false)){
+                    System.err.println("This product is inactive!,please choose another one!");
+                }else {
+                    return selectedProduct.getProductId();
+                }
             } else {
                 System.err.println("You have entered an invalid choice. Try again.");
             }

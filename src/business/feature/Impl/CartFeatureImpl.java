@@ -1,8 +1,6 @@
 package business.feature.Impl;
 
-import business.entity.CartItem;
-import business.entity.Product;
-import business.entity.Users;
+import business.entity.*;
 import business.feature.ICartItemFeature;
 import business.utils.IOFile;
 
@@ -16,22 +14,19 @@ public class CartFeatureImpl implements ICartItemFeature {
 
     static {
         cartItemList = IOFile.readFromFile(IOFile.PATH_CART);
-        if (cartItemList == null) {
-            cartItemList = new ArrayList<>();
-        }
+
     }
 
     public CartFeatureImpl() {
-        if (cartItemList == null) {
+
             cartItemList = IOFile.readFromFile(IOFile.PATH_CART);
-            if (cartItemList == null) {
-                cartItemList = new ArrayList<>();
-            }
-        }
+
+
     }
 
     @Override
     public List<CartItem> getAll() {
+
         return cartItemList;
     }
 

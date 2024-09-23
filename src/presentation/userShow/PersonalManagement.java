@@ -55,13 +55,10 @@ public class PersonalManagement {
         System.out.println("Enter detail information: ");
         UserFeatureImpl.userLogin.inputUser(scanner);
         userFeature.addDetailUser(UserFeatureImpl.userLogin);
-//        userFeature.save(UserFeatureImpl.userLogin);
+
         System.out.println("You have successfully added details into the database");
     }
 
-    public static void updateDetails(Scanner scanner) {
-
-    }
 
     public static void showMenuPersonalInformation() {
        for (Users user : userFeature.getUsersList()){

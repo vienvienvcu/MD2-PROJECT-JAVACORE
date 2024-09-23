@@ -21,7 +21,7 @@ public class ManagementCategory {
             System.out.println("┃      " + GREEN + "2. ADD CATEGORY          " + BLUE + "                     ┃");
             System.out.println("┃      " + GREEN + "3. UPDATE CATEGORY      " + BLUE + "                      ┃");
             System.out.println("┃      " + GREEN + "4. DELETE CATEGORY     " + BLUE + "                       ┃");
-            System.out.println("┃      " + GREEN + "5. SEARCH CATEGORY BY ID   " + BLUE + "                   ┃");
+            System.out.println("┃      " + GREEN + "5. SEARCH CATEGORY BY NAME   " + BLUE + "                   ┃");
             System.out.println("┃      " + GREEN + "6. SORT IN DESCENDING OR ASCENDING ORDER" + BLUE + "      ┃");
             System.out.println("┃      " + GREEN + "7. BACK   " + BLUE + "                                    ┃");
             System.out.println("┃                                                    ┃");
@@ -70,7 +70,7 @@ public class ManagementCategory {
         System.out.println("Enter number category you want to add: ");
         int number = inputNumber(scanner);
         for (int i = 0; i< number; i++ ){
-            System.out.println("Category input information" + i + ": ");
+            System.out.println("Category input information" + (i + 1 ) + ": ");
             Category category = new Category();
             category.inputCategoryData(scanner);
             categoryFeature.save(category);
@@ -132,8 +132,15 @@ public class ManagementCategory {
     public static void searchCategory(Scanner scanner) {
         System.out.println("Enter category name you want to search: ");
         String categoryName = scanner.nextLine().toLowerCase();
-        categoryFeature.searchCategoryByName(categoryName);
-    }
+            for (Category category : CategoryFeatureImpl.categoryList){
+                if (category.getCategoryName().toLowerCase().equals(categoryName)){
+                    category.displayCategoryData();
+                }
+            }
+            System.out.println();
+            System.out.println("Search Category Successfully");
+        }
+
 
     public static int inputNumber(Scanner scanner) {
         do {

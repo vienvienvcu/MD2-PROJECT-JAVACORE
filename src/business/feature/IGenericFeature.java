@@ -1,5 +1,7 @@
 package business.feature;
 
+import business.entity.Orders;
+
 import java.util.List;
 
 public interface IGenericFeature<T,E> {

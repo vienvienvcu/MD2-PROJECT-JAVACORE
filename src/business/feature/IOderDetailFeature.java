@@ -1,4 +1,6 @@
 package business.feature;
 
-public interface IOderDetailFeature  {
+import business.entity.OrderDetail;
+
+public interface IOderDetailFeature extends IGenericFeature<OrderDetail,Integer> {
 }

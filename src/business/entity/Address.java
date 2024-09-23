@@ -16,17 +16,20 @@ public class Address implements Serializable {
 
 
 //    ****************CONTRACTOR***********************:
-public Address(){
+    public Address(){
 
     }
 
     public Address(int addressId, String fullAddress, String phone, String receiveName, Users user) {
         this.addressId = addressId;
+        this.receiveName = receiveName;
         this.fullAddress = fullAddress;
         this.phone = phone;
-        this.receiveName = receiveName;
         this.user = user;
+
+
     }
+
 
 //  ****************METHOD GET/SET***********************:
 
@@ -74,16 +77,18 @@ public Address(){
 //    ****************INPUT ADDRESS DATA***********************:
 
     public void inputAddressData(Scanner scanner){
-         this.addressId =inputAddressData();
-         this.fullAddress = inputFullAddress(scanner);
-         this.phone = inputPhone(scanner);
-         this.receiveName = inputReceiveName(scanner);
+          this.addressId =inputAddressId();
+          this.phone = inputPhone(scanner);
+          this.fullAddress = inputFullAddress(scanner);
+          this.receiveName = inputReceiveName(scanner);
+
+
 
     }
 
 //   ========================VALIDATION=========================
 
-    public int inputAddressData(){
+    public int inputAddressId(){
         int idAddressMax =0;
         for (Address address: AddressFeatureImpl.addressList ){
             if(address.getAddressId() > idAddressMax){
@@ -145,6 +150,8 @@ public Address(){
             }
         }while (true);
     }
+
+
     public static int inputNumber(Scanner scanner) {
         do {
             try {
@@ -158,20 +165,18 @@ public Address(){
 
 //    ****************SHOW ADDRESS DATA***********************:
     public void displayAddressData(){
-        String format = "| %-20s | %-20s | %-30s | %-20s | %-20s |\n";
-        String separator = "+----------------------+----------------------+--------------------------------+----------------------+----------------------+\n";
+        String format = "| %-20s | %-20s | %-30s | %-20s | %-40s |\n";
+        String separator = "+----------------------+----------------------+--------------------------------+----------------------+--------------------------------------------+\n";
 
         // Print header
         System.out.print(separator);
-        System.out.printf(format, "Address ID", "User Name", "Full Address", "Phone", "Receive Name");
+        System.out.printf(format, "Address ID", "Receive Name "," Full Address ","Phone ","User Name");
         System.out.print(separator);
 
         // Print address data
-        System.out.printf(format, addressId, this.user.getUserName(), fullAddress, phone, receiveName);
+        System.out.printf(format, this.addressId,receiveName, fullAddress,this.phone,this.user.getUserName());
         System.out.print(separator);
         System.out.println();
-
     }
-
 
 }

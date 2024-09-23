@@ -31,6 +31,7 @@ public class AddressManagement {
             int choice = inputNumber(scanner);
             switch (choice) {
                 case 1:
+                    showAddressesForCurrentUser();
                     showAddressById(scanner);
                     break;
                 case 2:
@@ -40,6 +41,7 @@ public class AddressManagement {
                     addNewAddress(scanner);
                     break;
                 case 4:
+                    showAddressesForCurrentUser();
                     deleteAddress(scanner);
                     break;
                 case 5:
@@ -60,9 +62,27 @@ public class AddressManagement {
                 Address address = new Address();
                 address.setUser(userLogin);
                 address.inputAddressData(scanner);
-                addressFeature.save(address);
+                // Kiểm tra xem địa chỉ đã tồn tại trong danh sách chưa
+                boolean addressExists = false;
+                for (Address existingAddress : AddressFeatureImpl.addressList) {
+                    if (existingAddress.getAddressId() == address.getAddressId()) {
+                        addressExists = true;
+                        break;
+                    }
+                }
+
+                if (!addressExists) {
+                    // Thêm đối tượng Address mới vào danh sách
+                    AddressFeatureImpl.addressList.add(address);
+
+                    // Lưu đối tượng Address vào file
+                    addressFeature.save(address);
+                    AddressFeatureImpl.saveAddressesToFile();
+                } else {
+                    System.err.println("Address already exists in the list.");
+                }
             }
-            System.out.println("You have successfully added address");
+        System.out.println("You have successfully added addresses");
     }
 
     public static void showAddressesForCurrentUser() {
@@ -77,7 +97,9 @@ public class AddressManagement {
 
         // Lặp qua danh sách địa chỉ và lọc ra các địa chỉ của người dùng hiện tại
         for (Address address : AddressFeatureImpl.addressList) {
-            if (address.getUser().getEmail().equals(currentUserEmail)) {
+            Users user = address.getUser();
+
+            if (user.getEmail().equals(currentUserEmail)) {
                 currentUserAddresses.add(address);
             }
         }
@@ -104,11 +126,12 @@ public class AddressManagement {
     }
 
     public static void showAddressById(Scanner scanner) {
+        String currentUserEmail = getCurrentUserEmail(); //
         System.out.println("Enter address id you want to show: ");
         boolean isExit = false;
         int id = inputNumber(scanner);
         for (Address address : addressFeature.getAll()) {
-            if (address.getAddressId() == id) {
+            if (address.getUser().equals(currentUserEmail) && address.getAddressId() == id) {
                 isExit = true;
                 address.displayAddressData();
             }

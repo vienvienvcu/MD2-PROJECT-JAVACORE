@@ -5,7 +5,9 @@ import business.feature.Impl.UserFeatureImpl;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -27,10 +29,13 @@ public class Users implements Serializable,Comparable<Users> {
     private boolean statusUser;
     private boolean isDeleted;
     private RoleName roleName;
+    private List<Address> addressList;
+
 
 //***********************CONTRACTOR****************************************
 
     public Users() {
+        this.addressList = new ArrayList<>(); // Khởi tạo danh sách địa chỉ
     }
 
     public Users(String address, String confirmPassword, Date creationDate,
@@ -51,8 +56,11 @@ public class Users implements Serializable,Comparable<Users> {
         this.updatedDate = updatedDate;
         this.userName = userName;
         this.usersId = usersId;
+
     }
 //********************GET/SET********************************
+
+
 
     public boolean isDelete() {
         return isDeleted;
@@ -223,18 +231,7 @@ public class Users implements Serializable,Comparable<Users> {
                 System.err.println("Username cannot be empty,please try again");
             } else {
                 if (username.length() > 6 && username.length() <= 100) {
-                    boolean isExist = false;
-                    for (Users user : UserFeatureImpl.usersList) {
-                        if (user.getUserName().equals(username)) {
-                            isExist = true;
-                            break;
-                        }
-                    }
-                    if (isExist){
-                        System.err.println("Username is already taken,please try again");
-                    }else {
-                        return this.userName;
-                    }
+                   return this.userName = username;
                 } else {
                     System.err.println("Username must be less >6 characters long and less than 100 characters");
                 }

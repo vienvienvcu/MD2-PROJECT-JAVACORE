@@ -7,8 +7,14 @@ import business.utils.IOFile;
 import java.util.ArrayList;
 import java.util.List;
 
+import static business.feature.Impl.UserFeatureImpl.userLogin;
+
 public class AddressFeatureImpl implements IAddressFeature {
     public static List<Address> addressList = new ArrayList<>();
+
+    static {
+        addressList = IOFile.readFromFile(IOFile.PATH_ADDRESS);
+    }
 
     public AddressFeatureImpl() {
         addressList = IOFile.readFromFile(IOFile.PATH_ADDRESS);
@@ -36,7 +42,9 @@ public class AddressFeatureImpl implements IAddressFeature {
       if (indexCheck >= 0) {
           addressList.set(indexCheck, address);
       }else {
+          address.setUser(userLogin);
           addressList.add(address);
+
       }
         IOFile.writeToFile(IOFile.PATH_ADDRESS, addressList);
     }
@@ -50,4 +58,19 @@ public class AddressFeatureImpl implements IAddressFeature {
         }
         return -1;
     }
+
+    public static void saveAddressesToFile() {
+        IOFile.writeToFile(IOFile.PATH_ADDRESS, addressList);
+    }
+    public static int generateAddressId() {
+        int maxId = 0;
+        for (Address address : addressList) {
+            if (address.getAddressId() > maxId) {
+                maxId = address.getAddressId();
+            }
+        }
+        return maxId + 1;
+    }
+
+
 }

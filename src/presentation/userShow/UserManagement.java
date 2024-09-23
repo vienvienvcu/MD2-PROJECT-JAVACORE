@@ -1,5 +1,6 @@
 package presentation.userShow;
 
+import business.entity.Address;
 import business.entity.Product;
 import business.entity.Users;
 import business.feature.Impl.UserFeatureImpl;
@@ -57,7 +58,9 @@ public class UserManagement {
             System.err.println("product now is empty");
         }else {
             for (Product product : productFeature.getAll()) {
-                product.displayProductData();
+                if (product.getStatus().equals(true)){
+                    product.displayProductData();
+                }
             }
         }
     }

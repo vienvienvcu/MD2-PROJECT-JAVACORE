@@ -2,11 +2,12 @@ package business.entity;
 
 import business.feature.Impl.CartFeatureImpl;
 import business.feature.Impl.ProductFeatureImpl;
-import presentation.userShow.UserManagement;
+
 
 import java.io.Serializable;
 import java.util.Scanner;
 
+import static business.entity.Orders.inputNumber;
 import static business.feature.Impl.ProductFeatureImpl.productList;
 
 public class CartItem implements Serializable {
@@ -45,8 +46,9 @@ public class CartItem implements Serializable {
         this.productId = productId;
     }
 
+
     public int getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public void setQuantity(int quantity) {
@@ -62,11 +64,13 @@ public class CartItem implements Serializable {
     }
 
     //      =====================INPUT CART==============================
+
     public void inputsCartItemData(Scanner scanner){
         this.cartItemId = inputCartId();
         this.productId = inputProductId(scanner);
         this.quantity = inputQuantity(scanner);
     }
+
 //      ==================== VALIDATION==============================
 
     public int inputCartId(){
@@ -79,9 +83,9 @@ public class CartItem implements Serializable {
         return cartItemIdMax + 1;
     }
 
-    public int inputProductId(Scanner scanner){
-        String format = "| %-5s | %-20s | %-10s | %-10s | %-30s | %-10s |\n";
-        String separator = "+-------+----------------------+------------+------------+--------------------------------+------------+\n";
+    public int inputProductId(Scanner scanner) {
+        String format = "| %-5s | %-20s | %-10s | %-15s | %-30s | %-10s |\n";
+        String separator = "+-------+----------------------+------------+-----------------+--------------------------------+------------+\n";
 
         do {
             // Table header
@@ -92,11 +96,12 @@ public class CartItem implements Serializable {
             // Product data
             for (int i = 0; i < ProductFeatureImpl.productList.size(); i++) {
                 Product product = ProductFeatureImpl.productList.get(i);
+                String stockDisplay = product.getStockQuantity() > 0 ? Integer.toString(product.getStockQuantity()) : "Out of stock";
                 System.out.format(format,
                         (i + 1),
                         product.getProductName(),
                         product.getUniPrice(),
-                        product.getStockQuantity(),
+                        stockDisplay,
                         product.getDescription(),
                         product.getStatus());
             }
@@ -105,36 +110,50 @@ public class CartItem implements Serializable {
             System.out.print("Enter your choice: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
-            if (choice > 0 && choice <= productList.size()) {
-                return ProductFeatureImpl.productList.get(choice - 1).getProductId();
+            if (choice > 0 && choice <= ProductFeatureImpl.productList.size()) {
+                Product selectedProduct = ProductFeatureImpl.productList.get(choice - 1);
+                if (selectedProduct.getStockQuantity() == 0) {
+                    System.err.println("This product is out of stock!,please choose another one!");
+                } else if (selectedProduct.getStatus().equals(false)){
+                    System.err.println("This product is inactive!,please choose another one!");
+                }else {
+                    return selectedProduct.getProductId();
+                }
             } else {
                 System.err.println("You have entered an invalid choice. Try again.");
             }
         } while (true);
     }
 
+
     public int inputQuantity(Scanner scanner){
         System.out.println("Enter the quantity of the cart item");
         do {
             try {
                 int quantity = Integer.parseInt(scanner.nextLine());
-                boolean flag = false;
-                for (int i = 0; i < productList.size(); i++) {
-                    if (quantity > 0 && quantity <= productList.get(i).getStockQuantity()) {
-                        flag = true;
+
+                // Find the selected product in the productList
+                Product selectedProduct = null;
+                for (Product product : ProductFeatureImpl.productList) {
+                    if (product.getProductId() == this.productId) {
+                        selectedProduct = product;
                         break;
                     }
                 }
-                if (flag) {
-                    return quantity;
-                }else {
-                    System.err.println("Invalid quantity entered,please try again");
-                }
-            }catch (NumberFormatException e) {
-                System.out.println("Enter the quantity of the cart item");
-            }
 
-        }while (true);
+                // Check if selectedProduct exists and if quantity is valid
+                if (selectedProduct != null && quantity > 0 && quantity <= selectedProduct.getStockQuantity()) {
+                    return quantity;
+                } else if (quantity == 0){
+                    productList.remove(selectedProduct);
+
+                }else {
+                    System.err.println("Invalid quantity entered or product is out of stock. Please try again.");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid input. Please enter a valid quantity.");
+            }
+        } while (true);
     }
 
 //      =====================SHOW CART===============================

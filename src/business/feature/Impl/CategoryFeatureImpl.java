@@ -1,6 +1,7 @@
 package business.feature.Impl;
 
 import business.entity.Category;
+import business.entity.Orders;
 import business.entity.Product;
 import business.feature.ICategoryFeature;
 import business.utils.IOFile;
@@ -13,6 +14,10 @@ import java.util.List;
 public class CategoryFeatureImpl implements ICategoryFeature {
 
     public static List <Category> categoryList = new ArrayList<>();
+
+    static {
+        categoryList = IOFile.readFromFile(IOFile.PATH_CATEGORY);
+    }
 
     public CategoryFeatureImpl (){
         categoryList = IOFile.readFromFile(IOFile.PATH_CATEGORY);
@@ -76,14 +81,5 @@ public class CategoryFeatureImpl implements ICategoryFeature {
         IOFile.writeToFile(IOFile.PATH_CATEGORY, categoryList);
     }
 
-    public  void searchCategoryByName(String categoryName) {
-            for (Category category : categoryList){
-                if (category.getCategoryName().toLowerCase().equals(categoryName)){
-                    category.displayCategoryData();
-                }
-            }
-        System.out.println();
-        System.out.println("Search Category Successfully");
-        IOFile.writeToFile(IOFile.PATH_CATEGORY, categoryList);
-    }
+
 }

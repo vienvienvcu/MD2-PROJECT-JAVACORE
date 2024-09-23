@@ -137,7 +137,7 @@ public class Product implements Serializable,Comparable<Product>{
 
     public void inputProductData(Scanner scanner){
         this.productId = inputProductId();
-        this.sku = inputSkuId(scanner);
+        this.sku = inputSkuId();
         this.productName = inputProductName(scanner);
         this.description = inputProductDescription(scanner);
         this.unitPrice = inputUnitPrice(scanner);
@@ -158,7 +158,7 @@ public class Product implements Serializable,Comparable<Product>{
         return idMax + 1;
     }
 
-    public String inputSkuId(Scanner scanner){
+    public String inputSkuId(){
             UUID uuid = UUID.randomUUID();
             return uuid.toString();
 

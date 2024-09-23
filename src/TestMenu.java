@@ -9,16 +9,17 @@ public class TestMenu {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
             do {
-                System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━━ MENU WISH LIST━━━━━━━━━━━━━━━━━━━━┓");
+                System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━━━━━ MENU ORDER ━━━━━━━━━━━━━━━━━━━━┓");
                 System.out.println("┃                                                      ┃");
-                System.out.println("┃      " + GREEN + "1. SHOW ALL PRODUCTS IN WISH LIST  " + BLUE + "             ┃");
-                System.out.println("┃      " + GREEN + "2. DELETE ONE PRODUCT IN WISH LIST " + BLUE + "             ┃");
-                System.out.println("┃      " + GREEN + "3. DELETE ALL PRODUCTS IN WISH LIST   " + BLUE + "          ┃");
-                System.out.println("┃      " + GREEN + "4. ADD PRODUCT IN WISH LIST " + BLUE + "                    ┃");
-                System.out.println("┃      " + GREEN + "5. BACK               " + BLUE + "                          ┃");
+                System.out.println("┃      " + GREEN + "1. SHOW ALL PRODUCTS IN CART   " + BLUE + "                 ┃");
+                System.out.println("┃      " + GREEN + "2. ADD CART IN ORDER " + BLUE + "                           ┃");
+                System.out.println("┃      " + GREEN + "3. SHOW DETAIL ORDER " + BLUE + "                           ┃");
+                System.out.println("┃      " + GREEN + "4. SHOW HISTORY ODER BY ORDER STATUS   " + BLUE + "         ┃");
+                System.out.println("┃      " + GREEN + "5. SHOW ALL HISTORY ORDERED    " + BLUE + "                 ┃");
+                System.out.println("┃      " + GREEN + "6. BACK               " + BLUE + "                          ┃");
                 System.out.println("┃                                                      ┃");
                 System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
-                System.out.println("Your choice to 1 from 5: ");
+                System.out.println("Your choice to 1 from 6: ");
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:

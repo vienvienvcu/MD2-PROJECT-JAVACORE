@@ -12,6 +12,8 @@ public class IOFile {
     public static final String PATH_ADDRESS = "src/business/data/address.txt";
     public static final String PATH_CART = "src/business/data/cart.txt";
     public static final String PATH_WISH = "src/business/data/wish.txt";
+    public static final String PATH_ORDER = "src/business/data/order.txt";
+    public static final String PATH_ORDER_DETAIL = "src/business/data/order_detail.txt";
 
     // Ghi danh sách đối tượng vào tệp
     public static <T> void writeToFile(String path, List<T> list) {

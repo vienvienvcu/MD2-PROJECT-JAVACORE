@@ -30,6 +30,7 @@ public class AdminManagement {
                     ManagementProduct.showMenuProduct(scanner);
                     break;
                 case 3:
+                    ManagementOrder.showMenuOrders(scanner);
                     break;
                 case 4:
                     ManagementUsers.showMenuUsersAdmin(scanner);

@@ -1,9 +1,7 @@
 package presentation.userShow;
 
-import business.entity.Address;
 import business.entity.CartItem;
 import business.feature.ICartItemFeature;
-import business.feature.Impl.AddressFeatureImpl;
 import business.feature.Impl.CartFeatureImpl;
 
 import java.util.ArrayList;
@@ -22,16 +20,16 @@ public class CartManagement {
     public static void showMenuCart(Scanner scanner) {
         boolean isExit = true;
         do {
-            System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━ MENU CART ━━━━━━━━━━━━━━━━━━━┓");
-            System.out.println("┃                                                ┃");
+            System.out.println(BLUE + "┏━━━━━━━━━━━━━━━━━━ MENU CART ━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("┃                                                     ┃");
             System.out.println("┃      " + GREEN + "1. SHOW ALL CART   " + BLUE + "                            ┃");
             System.out.println("┃      " + GREEN + "2. ADD NEW PRODUCT IN CART          " + BLUE + "           ┃");
             System.out.println("┃      " + GREEN + "3. DELETE ONE PRODUCT IN CART    " + BLUE + "              ┃");
             System.out.println("┃      " + GREEN + "4. DELETE ALL PRODUCTS IN CART     " + BLUE + "            ┃");
             System.out.println("┃      " + GREEN + "5. CHANGE THE ORDER QUANTITY OF A PRODUCTS    " + BLUE + " ┃");
             System.out.println("┃      " + GREEN + "6. BACK               " + BLUE + "                         ┃");
-            System.out.println("┃                                                ┃");
-            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            System.out.println("┃                                                     ┃");
+            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.println("Your choice to 1 from 6: ");
             int choice = inputNumber(scanner);
             switch (choice) {

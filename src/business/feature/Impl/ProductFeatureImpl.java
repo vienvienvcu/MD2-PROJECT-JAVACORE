@@ -1,12 +1,11 @@
 package business.feature.Impl;
 
+import business.entity.Orders;
 import business.entity.Product;
 import business.feature.IProductFeature;
 import business.utils.IOFile;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ProductFeatureImpl implements IProductFeature {
@@ -76,5 +75,23 @@ public class ProductFeatureImpl implements IProductFeature {
         System.out.println("Sort Product By Id susses");
         IOFile.writeToFile(IOFile.PATH_PRODUCT, productList);
     }
+    // Hàm tìm sản phẩm theo ID
+    public static Product findProductById(int productId) {
+        for (Product product : productList) {
+            if (product.getProductId() == productId) {
+                return product;
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy sản phẩm
+    }
 
+    // Hàm cập nhật số lượng sản phẩm trong kho
+    public static void updateStockQuantity(int productId, int quantityChange) {
+        Product product = findProductById(productId);
+        if (product != null) {
+            int newQuantity = product.getStockQuantity() + quantityChange;
+            product.setStockQuantity(newQuantity);
+        }
+        IOFile.writeToFile(IOFile.PATH_PRODUCT, productList); // Lưu thông tin cập nhật vào file
+    }
 }
